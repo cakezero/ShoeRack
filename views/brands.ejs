@@ -1,0 +1,39 @@
+<title>Brands</title>
+
+<h1>Brands</h1>
+<%- include ('./partials/base.ejs') %>
+Available Brands:
+<% if (brands.length > 0) { %>
+    <% brands.forEach(brand => { %>
+        <ul>
+            <li>
+                <a href="/brands/<%= brand.brand_name %>/<%= brand._id %>"><%= brand.brand_name %></a> - <a href="#delete" class="delete" data-doc="<%= brand._id %>">Delete</a>
+            </li>
+        </ul>
+    <% }) %>
+<% } else { %>
+    <p>OOPS...</p>
+    <ul>
+        <li>
+            You haven't added any brand yet. 
+        </li>
+    </ul>
+<% } %>
+
+<a href="/brands/add-brand">Add Brand</a>
+
+
+<script>
+    const trashcan = document.querySelector('a.delete');
+
+    trashcan.addEventListener('click', (e) => {
+        const endpoint = `/brands/del-brand/${trashcan.dataset.doc}`;
+
+        fetch(endpoint, {
+            method: 'DELETE'
+        })
+        .then((res) => res.json())
+        .then((data) => window.location.href = data.redirect)
+        .catch((err) => {console.log(err)});
+    });
+</script>
