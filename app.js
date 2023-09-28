@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 
 // Database Connection
-const dbURI = 'mongodb+srv://libadmin:bright23@racklib.bdae85z.mongodb.net/Shoelib?retryWrites=true&w=majority';
+const dbURI = 'Link to the db';
 mongoose.connect(dbURI)
     .then(() => console.log('Connected to the DB!!!'))
     .then((result) => app.listen(3000))
