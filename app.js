@@ -1,11 +1,13 @@
-const express = require('express');
-const brandRoutes = require('./routes/brandRoutes');
-const rnlRoutes = require('./routes/rnlRoutes');
-const cookieParser = require('cookie-parser');
+const express = require('express')
+const brandRoutes = require('./routes/brandRoutes')
+const rnlRoutes = require('./routes/rnlRoutes')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const app = express();
-const mongoose = require('mongoose');
 
+app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 app.use(express.urlencoded({extended: false}));

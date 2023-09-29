@@ -401,7 +401,7 @@ iframe {
 }
 
 .alert-validate::before {
-  content: attr(data-validate);
+  content: var(--script-content, "");
   position: absolute;
   max-width: 70%;
   background-color: white;

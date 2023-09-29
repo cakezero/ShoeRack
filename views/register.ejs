@@ -35,48 +35,37 @@
                             Register
                         </span>
         
-                        <div class="wrap-input100 validate-input" data-validate = "Valid username is required!!!">
-                            <input class="input100" type="text" name="user" placeholder="Username">
+                        <div class="wrap-input100 validate-input" data-error="usernameError">
+                            <input class="input100" type="text" name="username" placeholder="Username">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                         </div>
         
-                        <div class="wrap-input100 validate-input" data-validate = "Valid email is required!!!">
+                         <div class="wrap-input100 validate-input" data-error="emailError">
                             <input class="input100" type="text" name="email" placeholder="Email">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
+                        <div class="email error"></div>
                         </div>
         
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                            <input class="input100" type="password" name="pass1" placeholder="Enter Password">
+                        <div class="wrap-input100 validate-input"  data-error="passwordError">
+                            <input class="input100" type="password" name="password1" placeholder="Enter Password">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                         </div>
         
-                        <!-- <div class="wrap-input100 validate-input" data-validate = "Valid password is required!!!">
-                            <input class="input100" type="password" name="pass2" placeholder="Confirm Password">
+                        <div class="wrap-input100 validate-input"  data-error="password2Error">
+                            <input class="input100" type="password" name="password2" placeholder="Confirm Password">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                        </div> -->
-
-                        <div class="username error">
-
-                        </div>
-
-                        <div class="email error">
-
-                        </div>
-
-                        <div class="password error">
-
                         </div>
                         
                         <div class="container-login100-form-btn">
@@ -117,19 +106,28 @@
 
             <script>
                 const form = document.querySelector('form');
+
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
-                    const username = form.user.value;
+                    const username = form.username.value;
                     const email = form.email.value;
-                    const password = form.pass1.value;
+                    const password = form.password1.value;
+                    const password2 = form.password2.value
 
                     try {
                         const res = await fetch('/user/register', {
                             method: 'POST',
-                            body: JSON.stringify({ username, email, password }),
+                            body: JSON.stringify({ username, email, password, password2}),
                             headers: { 'Content-Type': 'application/json' }
                         });
+
+                        const data = await res.json();
+                        if (data.errors) {
+                            document.querySelector('[data-error="usernameError"]').style.setProperty("--script-content", `"${data.errors.username}"`);
+                            document.querySelector('[data-error="emailError"]').style.setProperty("--script-content", `"${data.errors.email}"`);
+                            document.querySelector('[data-error="passwordError"]').style.setProperty("--script-content", `"${data.errors.password}"`);
+                        }
                     }
                     catch (err) {
                         console.log(err);
