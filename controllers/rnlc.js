@@ -39,11 +39,7 @@ const register_post = async (req, res) => {
     const { username, email, password, password2 } = req.body;
 
     if (password !== password2) {
-       error = { 
-        message: 'Passwords do not match',
-        code: 2400
-        }
-        return handleErrors(error);
+       return res.status(400);
     }
 
     try {
