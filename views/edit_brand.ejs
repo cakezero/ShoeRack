@@ -1,9 +1,12 @@
 <title>Edit Brand</title>
 
-<form action="/edit-brand" id="ed-brand" method="post">
+<h1>Edit the <%= bd.brandName %> Brand.</h1>
+
+<form action="/edit-brand?id=<%= bd._id %>" method="put">
     
-    <label for="brand-edit">Edit Brand:</label>
-    <input type="text" name="brand-edit">
+    <label for="edit-brand">Edit Brand:</label>
+    <input type="text" name="brandName" placeholder="<%= bd.brandName %>">
     <button name="submit" class="btn btn-primary">Save Changes</button>
 
 </form>
+

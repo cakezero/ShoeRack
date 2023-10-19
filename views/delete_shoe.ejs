@@ -1,10 +1,11 @@
-<title>Delete Brand</title>
+<title>Delete Shoe</title>
 
 <ul>
     <li>
-        Are you sure you want to delete the <%= bd.brandName %> brand?
+        Are you sure you want to delete this <%= se.shoeName %> shoe?
     </li>
 </ul>
+
 <a href="#yes" class="delete" data-doc="<%= id %>">Yes</a> - <a href="#no" class="cancel">No</a>
 
 <script>
@@ -13,23 +14,22 @@
     const takeMeBack = document.querySelector('a.cancel');
 
     trashCan.addEventListener('click', (e) => {
-        e.preventDefault();
-        const endPoint = `/delete-brand/${trashCan.dataset.doc}`;
+        const endPoint = `/delete-shoe/${trashCan.dataset.doc}`;
 
         fetch(endPoint, {
             method: 'DELETE'
         })
-        .then(() => window.location.href = '/brands')
+        .then(() => window.location.href = `/${bd.brandName}/${bd._id}`)
         .catch((err) => { console.log(err) });
     });
 
     takeMeBack.addEventListener('click', (e) => {
-        const endPoint = '/brands';
+        const endPoint = `/${bd.brandName}/${bd._id}`;
 
         fetch(endPoint, {
             method: 'GET'
          })
-        .then(() => window.location.href = '/brands')
+        .then(() => window.location.href = `/${bd.brandName}/${bd._id}`)
         .catch((err) => { console.log(err) });
     });
 

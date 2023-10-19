@@ -2,12 +2,13 @@
 
 <h1>Brands</h1>
 <%- include ('./partials/base.ejs') %>
-Available Brands:
+
 <% if (brands.length > 0) { %>
+    Available Brands:
     <% brands.forEach(brand => { %>
         <ul>
             <li>
-                <a href="/brands/<%= brand.brand_name %>/<%= brand._id %>"><%= brand.brand_name %></a> - <a href="#delete" class="delete" data-doc="<%= brand._id %>">Delete</a>
+                <a href="/<%= brand.brandName %>/<%= brand._id %>"><%= brand.brandName %></a> - <a href="/edit-brand?id=<%= brand._id %>">Edit</a> - <a href="/delete-brand?id=<%= brand._id %>">Delete</a>
             </li>
         </ul>
     <% }) %>
@@ -20,20 +21,5 @@ Available Brands:
     </ul>
 <% } %>
 
-<a href="/brands/add-brand">Add Brand</a>
+<a href="/add-brand">Add Brand</a>
 
-
-<script>
-    const trashcan = document.querySelector('a.delete');
-
-    trashcan.addEventListener('click', (e) => {
-        const endpoint = `/brands/del-brand/${trashcan.dataset.doc}`;
-
-        fetch(endpoint, {
-            method: 'DELETE'
-        })
-        .then((res) => res.json())
-        .then((data) => window.location.href = data.redirect)
-        .catch((err) => {console.log(err)});
-    });
-</script>

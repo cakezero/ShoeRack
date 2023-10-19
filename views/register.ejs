@@ -41,6 +41,7 @@
                             <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
+                        <div class="username error"></div>
                         </div>
         
                          <div class="wrap-input100 validate-input" data-error="emailError">
@@ -58,9 +59,10 @@
                             <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
+                        <div class="password error"></div>
                         </div>
         
-                        <div class="wrap-input100 validate-input"  data-error="password2Error">
+                        <div class="wrap-input100">
                             <input class="input100" type="password" name="password2" placeholder="Confirm Password">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -106,14 +108,16 @@
 
             <script>
                 const form = document.querySelector('form');
-
+            
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
                     const username = form.username.value;
                     const email = form.email.value;
                     const password = form.password1.value;
-                    const password2 = form.password2.value
+                    const password2 = form.password2.value;
+
+
 
                     try {
                         const res = await fetch('/user/register', {
@@ -123,16 +127,20 @@
                         });
 
                         const data = await res.json();
+                        console.log(data);
                         if (data.errors) {
                             document.querySelector('[data-error="usernameError"]').style.setProperty("--script-content", `"${data.errors.username}"`);
                             document.querySelector('[data-error="emailError"]').style.setProperty("--script-content", `"${data.errors.email}"`);
                             document.querySelector('[data-error="passwordError"]').style.setProperty("--script-content", `"${data.errors.password}"`);
+                        } else if (data.user) {
+                            location.assign('/');
                         }
+
                     }
                     catch (err) {
                         console.log(err);
                     }
-                })
+                });
             </script>
     </body>
 

@@ -1,0 +1,26 @@
+<title>Shoes</title>
+
+<h1>Shoe: </h1>
+
+<%- include ('./partials/base.ejs') %>
+
+<% if (shoess.length > 0 ) { %>
+    Available Shoes:
+    <% shoess.forEach(shoe => { %>
+        <ul>
+            <li>
+                <%= shoe.shoeName %> - <a href="/delete-shoe?id=<%= shoe._id %>">Delete</a>
+            </li>
+        </ul>
+    <% }) %>
+<% } else { %>
+    <p>OOPS...</p>
+    <ul>
+        <li>
+            You haven't added any shoe for the <%= brandss.brandName %> brand yet. 
+        </li>
+    </ul>
+<% } %>
+
+<a href="/add-shoe?id=<%= brandss._id %>">Add Shoe</a>
+

@@ -1,11 +1,11 @@
 <title>Add Shoe</title>
 
-<h1>Adding Shoe for the brand.</h1>
+<h1>Adding Shoe for the  brand.</h1>
 
-<form action="/add-shoe/:id" method="post" id="shoe-form">
+<form action="/add-shoe?id=<%= id %>"  method="post">
 
     <label for="shoe">Enter the name of the Shoe:</label>
-    <input type="text" name="shoe" placeholder="e.g. Air Force 1">
+    <input type="text" name="shoeName" placeholder="e.g. Air Force 1">
     <button type="submit" class="btn-primary">Add Shoe</button>
     
 </form>
