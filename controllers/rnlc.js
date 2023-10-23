@@ -104,7 +104,7 @@ const login_post = async (req, res) => {
 
     try {
         const users = await User.login(email, password);
-        const token = createToken(user._id);
+        const token = createToken(users._id);
         res.cookie('shoe_cookie', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ user: users._id });
     }

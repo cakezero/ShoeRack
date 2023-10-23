@@ -1,9 +1,59 @@
-<title>Add Brand</title>
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Add Shoe Brand.</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <title>Add Brand</title>
+        <style>
+            body {
+                background-color: #f8f9fa;
+                padding: 50px;
+            }
+    
+            .custom-form {
+                max-width: 400px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            }
+    
+            .form-control {
+                border-radius: 5px;
+            }
+    
+            .btn-primary {
+                border-radius: 5px;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    
+    <div class="container">
+        <div class="custom-form">
+            <h2 class="text-center mb-4">Add Brand</h2>
+            <form action="/add-brand" method="post">
+                <label for="BrandName" class="form-label">Brand Name</label>
+                <input type="text" class="form-control" name="brandName" placeholder="e.g Nike" required>
+                <button type="submit" class="btn btn-primary">Add Brand</button>
+            </form>
+        </div>
+    </div>
 
-<form action="/add-brand" method="post" id="brand-form">
-    <label for="brandName">Enter the name of the Brand:</label>
-    <input type="text" name="brandName" placeholder="e.g. Nike">
-    <button type="submit">Add Brand</button>
-</form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
+
+
+<!-- <h1>Adding Shoe for the  brand.</h1>
+
+<form action="/add-brand"  method="post">
+
+    <label for="shoe">Enter the name of the Shoe:</label>
+    <input type="text" name="brandName" placeholder="e.g. Air Force 1">
+    <button type="submit" class="btn btn-primary">Add Shoe</button>
+    
+</form> -->

@@ -1,4 +1,4 @@
-const { set } = require('mongoose');
+const { escapeXML } = require('ejs');
 const BNS = require('../models/bns');
 const Brand = BNS.Brands;
 const Shoe = BNS.Shoes;
@@ -11,7 +11,7 @@ const home = (req, res) => {
 
 const brands = (req, res) => {
     Brand.find()
-        .then((result) =>{
+        .then((result) => {
             res.render('brands', { brands: result });
         })
         .catch((err) => res.status(404).render('404'));
@@ -30,13 +30,28 @@ const add_brand_post = (req, res) => {
 
 const edit_brand = (req, res) => {
     const id = req.query.id;
-    const bd = Brand.findById(id);
-    console.log(bd);
-    res.render('edit_brand', {bd});
+    Brand.findById(id)
+        .then((result) => { res.status(200).render('edit_brand', { brand: result }) })
+        .catch((err) => { res.status(404).render('404') });
 }
 
-const edit_brand_post = (req, res) => {
-    res.render('edit_brand', { qs: req.query });
+const edit_brand_put = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const { brandNamed } = req.body;
+  
+        const doc = await Brand.findById(id);
+        if (!doc) {
+            return res.status(404).render('404');
+        } 
+        doc.brandName = brandNamed;
+        await doc.save();
+  
+      res.status(200).json({ message: 'updated' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    };
 }
 
 const del_brand = async (req, res) => {
@@ -56,7 +71,8 @@ const del_brand_delete = (req, res) => {
         });
 }
 
-// The Shoe and Brand Controller
+
+// The Shoe Controller
 
 const shoes = async (req, res) => {
     const id = req.params.id;
@@ -67,7 +83,9 @@ const shoes = async (req, res) => {
 
 const add_shoe = (req, res) => {
     const id = req.query.id;
-    res.render('add_shoe', {id});
+    Brand.findById(id)
+        .then((result) => { res.render('add_shoe', { id, brand: result }) })
+        .catch((err) => { res.status(404).render('404') });
 }
 
 const add_shoe_post = async (req, res) => {
@@ -83,11 +101,34 @@ const add_shoe_post = async (req, res) => {
 }
 
 const edit_shoe = (req, res) => {
-    res.render('edit_shoe');
+    const id = req.query.id;
+    Shoe.findById(id)
+        .then((result) => { 
+            const brandId = result.brand;
+            Brand.findById(brandId)
+                .then((data) => { res.status(200).render( 'edit_shoe', { shoe: result, brand: data }) })
+                .catch(() => { res.status(404).render('404') }); })
+        .catch((err) => { res.status(404).render('404') });
 }
 
-const edit_shoe_post = (req, res) => {
-    res.render('edit_shoe', { qs: req.query });
+const edit_shoe_put = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { shoeNamed } = req.body;
+    
+          const doc = await Shoe.findById(id);
+          const brand = Brand.findById(doc.brand);
+          if (!doc) {
+            return res.status(404).render('404');
+          } 
+          doc.shoeName = shoeNamed;
+          await doc.save();
+    
+        res.status(200).json({message: 'updated'});
+    } catch (error) {
+        console.error(error);
+        res.status(404).json({ error: 'Internal Server Error' });
+    };
 } 
 
 const del_shoe = async (req, res) => {
@@ -101,11 +142,11 @@ const del_shoe = async (req, res) => {
 const del_shoe_delete = async (req, res) => {
     const id = req.params.id; 
     const se = await Shoe.findById(id);
-    ft = se.brand;    
+    ft = se.brand;
     const bd = await Brand.findById(ft);
     Shoe.findByIdAndDelete(id)
         .then(result => {
-            res.status(200).redirect(`/${bd.brandName}/${bd._id}`);
+            res.status(200).redirect('/brands');
         })
         .catch(err => {
             res.status(404).render('404');
@@ -118,14 +159,14 @@ module.exports = {
     add_brand,
     add_brand_post,
     edit_brand,
-    edit_brand_post,
+    edit_brand_put,
     del_brand,
     del_brand_delete,
     shoes,
     add_shoe,
     add_shoe_post,
     edit_shoe,
-    edit_shoe_post,
+    edit_shoe_put,
     del_shoe,
     del_shoe_delete
 }

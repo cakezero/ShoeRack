@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
-const { error } = require('console')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -49,4 +48,4 @@ const User = mongoose.model('users', userSchema);
 module.exports = User;
 
 
-// 永久, 恵比
+// 永久(Eternal), 恵比, モーリ(Molley-Mori), 明(Bright-Akira), 恵比寿・明(Ebisu・Akira, 'Blessed with Greatness')

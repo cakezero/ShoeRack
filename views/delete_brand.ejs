@@ -1,11 +1,15 @@
 <title>Delete Brand</title>
 
-<ul>
+<head>
+    <link rel="stylesheet" href="/assets/css/shoelib.css">
+</head>
+
+<ul class="styled-list">
     <li>
         Are you sure you want to delete the <%= bd.brandName %> brand?
     </li>
 </ul>
-<a href="#yes" class="delete" data-doc="<%= id %>">Yes</a> - <a href="#no" class="cancel">No</a>
+<a href="#yes" class="mv-left delete" data-doc="<%= id %>"><button type="button" class="btn btn-danger rounded-5">Yes</button></a> - <a href="#no" class="cancel"><button type="button" class="rounded-5 btn btn-primary">No</button></a>
 
 <script>
     

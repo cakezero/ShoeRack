@@ -1,35 +1,43 @@
 <title>Delete Shoe</title>
 
-<ul>
+<head>
+    <link rel="stylesheet" href="/assets/css/shoelib.css">
+</head>
+
+<ul class="styled-list">
     <li>
         Are you sure you want to delete this <%= se.shoeName %> shoe?
     </li>
 </ul>
-
-<a href="#yes" class="delete" data-doc="<%= id %>">Yes</a> - <a href="#no" class="cancel">No</a>
-
+<div class="mv-left">
+    <a href="#yes" class="delete" data-doc="<%= id %>"><button class="btn btn-danger rounded-5">Yes</button></a> - <a href="#no" class="cancel"><button class="btn btn-primary rounded-5">No</button></a>
+    <input type="text" id="brandDoc" value="<%= bd.brandName %>" style="display:none">
+    <input type="text" id="brandDocId" value="<%= bd._id %>" style="display:none">
+</div>
 <script>
     
     const trashCan = document.querySelector('a.delete');
     const takeMeBack = document.querySelector('a.cancel');
+    const bdId = document.getElementById('brandDocId').value;
+    const bdName = document.getElementById('brandDoc').value;
 
     trashCan.addEventListener('click', (e) => {
+        e.preventDefault();
         const endPoint = `/delete-shoe/${trashCan.dataset.doc}`;
-
         fetch(endPoint, {
             method: 'DELETE'
         })
-        .then(() => window.location.href = `/${bd.brandName}/${bd._id}`)
+        .then((data) => window.location.href = `/${bdName}/${bdId}`)
         .catch((err) => { console.log(err) });
     });
 
     takeMeBack.addEventListener('click', (e) => {
-        const endPoint = `/${bd.brandName}/${bd._id}`;
+        const endPoint = `/${bdName}/${bdId}`;
 
         fetch(endPoint, {
             method: 'GET'
          })
-        .then(() => window.location.href = `/${bd.brandName}/${bd._id}`)
+        .then(() => window.location.href = `/${bdName}/${bdId}`)
         .catch((err) => { console.log(err) });
     });
 
