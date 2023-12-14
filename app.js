@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const bnsRoutes = require('./routes/bnsRoutes')
 const rnlRoutes = require('./routes/rnlRoutes')
@@ -17,7 +18,7 @@ app.use(cookieParser());
 // passport.initialize()
 
 // Database Connection
-const dbURI = 'Link to the DB';
+const dbURI = process.env.DB_URL;
 mongoose.connect(dbURI)
     .then(() => console.log('Connected to the DB!!!'))
     .then((result) => app.listen(3000))
