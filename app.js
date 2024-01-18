@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const { requireAuth, checkUser } = require('./middleware/authMiddleware')
-const passport = require('passport')
 
 const app = express();
 
@@ -15,7 +14,6 @@ app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'));
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-// passport.initialize()
 
 // Database Connection
 const dbURI = process.env.DB_URL;
