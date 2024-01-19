@@ -1,14 +1,11 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../models/rnls');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
 
 const requireAuth = (req, res, next) => {
-
     const token = req.cookies.shoe_cookie;
     if (token) {
-        jwt.verify(token, 'secret_message', (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET_MESSAGE, (err, decodedToken) => {
             if (err) {
                 res.redirect('/user/login');
             } else {
@@ -21,16 +18,15 @@ const requireAuth = (req, res, next) => {
 };
 
 const checkUser = (req, res, next) => {
-
     const token = req.cookies.shoe_cookie;
     if (token) {
-        jwt.verify(token, 'secret_message', async (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET_MESSAGE, async (err, decodedToken) => {
             if (err) {
                 res.locals.user = null;
                 console.log(err)
                 next();
             } else {
-                let user = await User.findById(decodedToken._id);
+                let user = await User.findById(decodedToken.id);
                 res.locals.user = user;
                 console.log(user);
                 next();
@@ -41,6 +37,7 @@ const checkUser = (req, res, next) => {
         next();
     }
 };
+
 
 module.exports = { 
     requireAuth,
