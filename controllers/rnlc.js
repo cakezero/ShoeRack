@@ -1,6 +1,5 @@
 const User = require('../models/rnls');
-const jwt = require('jsonwebtoken')
-const passport = require('passport')
+const jwt = require('jsonwebtoken');
 
 
 // Error Handling
@@ -38,9 +37,7 @@ const handleErrors = (err) => {
 //  MaxAge
 const maxAge = 1 * 24 * 60 * 60
 const createToken = (id) => {
-    return jwt.sign({ id }, 'secret_message', {
-        expiresIn: maxAge
-    });
+    return jwt.sign({ id }, process.env.SECRET_MESSAGE, { expiresIn: maxAge });
 }
 
 
