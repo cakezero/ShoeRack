@@ -1,6 +1,5 @@
 const User = require('../models/rnls');
-const jwt = require('jsonwebtoken')
-const passport = require('passport')
+const jwt = require('jsonwebtoken');
 
 
 // Error Handling
@@ -38,9 +37,7 @@ const handleErrors = (err) => {
 //  MaxAge
 const maxAge = 1 * 24 * 60 * 60
 const createToken = (id) => {
-    return jwt.sign({ id }, 'secret_message', {
-        expiresIn: maxAge
-    });
+    return jwt.sign({ id }, process.env.SECRET_MESSAGE, { expiresIn: maxAge });
 }
 
 
@@ -78,26 +75,6 @@ const register_post = async (req, res) => {
 const login = (req, res) => {
     res.render('login')
 };
-
-// const login_post = async (req, res, next) => {
-//     passport.authenticate('local', (err, user, info) => {
-//         if (err) {
-//             return res.status(400).json({ errors: err })
-//         }
-//         if (!user) {
-//             return res.status(400).json({ errors: info })
-//         }
-//         req.login(user, async (err) => {
-//             if (err) {
-//                 return res.status(400).json({ errors: err })
-//             }
-//         })
-//         const token = createToken(user._id);
-//         res.cookie('shoe_cookie', token, { httpOnly: true, maxAge: maxAge * 1000 });
-//         res.status(200).json({ user: user._id, token: token });
-//     });
-//     (req, res, next);
-// }
 
 const login_post = async (req, res) => {
     const { email, password } = req.body;
