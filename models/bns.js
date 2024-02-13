@@ -21,7 +21,7 @@ const shoeSchema = new Schema({
     }
 }, { timestamps: true });
 
-shoeSchema.pre('remove', function (next) {
+brandSchema.pre('remove', function (next) {
     Shoes.remove({brand: this._id}).exec();
     next();
 });
