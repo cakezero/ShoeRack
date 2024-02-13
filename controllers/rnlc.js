@@ -1,5 +1,9 @@
 const User = require('../models/rnls');
+<<<<<<< HEAD
 const jwt = require('jsonwebtoken')
+=======
+const jwt = require('jsonwebtoken');
+>>>>>>> a001d1652b1fb0326e6369d0eaa573893491a977
 
 
 // Error Handling
@@ -37,9 +41,7 @@ const handleErrors = (err) => {
 //  MaxAge
 const maxAge = 1 * 24 * 60 * 60
 const createToken = (id) => {
-    return jwt.sign({ id }, 'secret_message', {
-        expiresIn: maxAge
-    });
+    return jwt.sign({ id }, process.env.SECRET_MESSAGE, { expiresIn: maxAge });
 }
 
 
@@ -78,7 +80,10 @@ const login = (req, res) => {
     res.render('login')
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a001d1652b1fb0326e6369d0eaa573893491a977
 const login_post = async (req, res) => {
     const { email, password } = req.body;
 

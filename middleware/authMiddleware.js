@@ -1,11 +1,11 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../models/rnls');
 
 const requireAuth = (req, res, next) => {
-
     const token = req.cookies.shoe_cookie;
     if (token) {
-        jwt.verify(token, 'secret_message', (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET_MESSAGE, (err, decodedToken) => {
             if (err) {
                 res.redirect('/user/login');
             } else {
@@ -20,7 +20,7 @@ const requireAuth = (req, res, next) => {
 const checkUser = (req, res, next) => {
     const token = req.cookies.shoe_cookie;
     if (token) {
-        jwt.verify(token, 'secret_message', async (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET_MESSAGE, async (err, decodedToken) => {
             if (err) {
                 res.locals.user = null;
                 console.log(err)
@@ -37,9 +37,16 @@ const checkUser = (req, res, next) => {
     }
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a001d1652b1fb0326e6369d0eaa573893491a977
 
 module.exports = { 
     requireAuth,
     checkUser
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> a001d1652b1fb0326e6369d0eaa573893491a977

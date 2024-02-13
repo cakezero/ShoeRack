@@ -1,4 +1,3 @@
-const { escapeXML } = require('ejs');
 const BNS = require('../models/bns');
 const Brand = BNS.Brands;
 const Shoe = BNS.Shoes;
