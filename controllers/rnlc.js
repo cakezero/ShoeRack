@@ -1,9 +1,6 @@
 const User = require('../models/rnls');
-<<<<<<< HEAD
 const jwt = require('jsonwebtoken')
-=======
 const jwt = require('jsonwebtoken');
->>>>>>> a001d1652b1fb0326e6369d0eaa573893491a977
 
 
 // Error Handling
